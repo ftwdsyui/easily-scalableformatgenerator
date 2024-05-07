@@ -1,23 +1,10 @@
-function zigzagLevelOrder(root) {
-  if (!root) return [];
-  const result = [];
-  let isReverse = false;
-  const queue = [root];
-  while (queue.length) {
-    const size = queue.length;
-    const level = [];
-    for (let i = 0; i < size; i++) {
-      const node = queue.shift();
-      if (isReverse) {
-        level.unshift(node.val);
-      } else {
-        level.push(node.val);
-      }
-      if (node.left) queue.push(node.left);
-      if (node.right) queue.push(node.right);
+function minimumTotal(triangle) {
+  const n = triangle.length;
+  const dp = triangle[n - 1];
+  for (let i = n - 2; i >= 0; i--) {
+    for (let j = 0; j <= i; j++) {
+      dp[j] = triangle[i][j] + Math.min(dp[j], dp[j + 1]);
     }
-    result.push(level);
-    isReverse = !isReverse;
   }
-  return result;
+  return dp[0];
 }
